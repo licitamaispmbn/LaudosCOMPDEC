@@ -190,17 +190,36 @@ const todayISO = () => new Date().toISOString().slice(0,10);
 
 if(!$('dataVistoria').value) $('dataVistoria').value = todayISO();
 
-function adicionarFotos(event) {
-  const files = [...event.target.files];
-  files.forEach(file => {
-    const reader = new FileReader();
-    reader.onload = e => {
-      fotos.push({ src:data, nome:file.name, desc:'', local:v('endereco'), lat:v('lat'), lng:v('lng') });
-      renderFotos();
+async function comprimirImagem(file){
+  return new Promise((resolve,reject)=>{
+    const fr=new FileReader();
+    fr.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        const max=1600;
+        if(w>h&&w>max){h=Math.round(h*max/w);w=max;}
+        else if(h>=w&&h>max){w=Math.round(w*max/h);h=max;}
+        const c=document.createElement('canvas');
+        c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(c.toDataURL('image/jpeg',0.72));
+      };
+      img.onerror=reject;
+      img.src=e.target.result;
     };
-    otimizarImagem(file).then(data=>{img.src=data; if(typeof foto==='object') foto.src=data;});
+    fr.onerror=reject;
+    fr.readAsDataURL(file);
   });
-  event.target.value = '';
+}
+async function adicionarFotos(event) {
+  const files=[...event.target.files];
+  for(const file of files){
+    const data=await comprimirImagem(file);
+    fotos.push({src:data,nome:file.name,desc:'',local:v('endereco'),lat:v('lat'),lng:v('lng')});
+  }
+  renderFotos();
+  event.target.value='';
 }
 
 function renderFotos() {
@@ -317,30 +336,6 @@ function limparFormulario() {
   renderFotos();
   $('dataVistoria').value = todayISO();
 }
-
-async function otimizarImagem(file){
-  return new Promise((resolve,reject)=>{
-    const img=new Image();
-    const fr=new FileReader();
-    fr.onload=e=>{
-      img.onload=()=>{
-        let w=img.width,h=img.height;
-        const max=1600;
-        if(w>h && w>max){h=Math.round(h*max/w);w=max;}
-        else if(h>=w && h>max){w=Math.round(w*max/h);h=max;}
-        const c=document.createElement('canvas');
-        c.width=w;c.height=h;
-        const ctx=c.getContext('2d');
-        ctx.drawImage(img,0,0,w,h);
-        resolve(c.toDataURL('image/jpeg',0.70));
-      };
-      img.src=data;
-    };
-    fr.onerror=reject;
-    fr.readAsDataURL(file);
-  });
-}
-
 </script>
 </body>
 </html>
