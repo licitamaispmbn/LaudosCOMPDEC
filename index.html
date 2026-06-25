@@ -128,7 +128,7 @@ textarea{min-height:88px;resize:vertical;line-height:1.35}
     <textarea id="analise">Com base na vistoria realizada, verifica-se que a permanência dos materiais identificados poderá comprometer a capacidade de escoamento do curso d'água, aumentando o risco de transbordamentos, alagamentos, enxurradas, erosões marginais e danos à população, vias públicas, edificações e serviços essenciais. Diante das condições observadas, recomenda-se a execução de serviços preventivos de limpeza e desobstrução, com finalidade exclusiva de mitigação de riscos e proteção da coletividade.</textarea>
   </div>
 
-  <div class="panel"><h2>6. Serviços recomendados/autorizados</h2>
+  <div class="panel"><h2>6. Serviços recomendados</h2>
     <div class="checkgrid">
       <label><input type="checkbox" class="serv" value="Remoção de resíduos sólidos" checked> Remoção de resíduos sólidos</label>
       <label><input type="checkbox" class="serv" value="Retirada de galhadas, troncos e materiais flutuantes" checked> Galhadas/troncos</label>
@@ -253,7 +253,7 @@ A manifestação da Defesa Civil restringe-se à caracterização do risco e à 
   html += sec('3. Fundamentação técnica e legal', esc(fundamentacao));
   html += sec('4. Constatações da vistoria', listaHTML(cond) + `<br>${esc(v('descricao'))}`);
   html += sec('5. Análise técnica / justificativa de risco', esc(v('analise')));
-  html += sec('6. Serviços recomendados/autorizados', listaHTML(serv));
+  html += sec('6. Serviços recomendados', listaHTML(serv));
   html += sec('7. Limites da intervenção', esc(limites));
   html += sec('8. Medidas de controle ambiental e operacional', listaHTML(ctrl));
   html += sec('9. Destinação do material removido', esc(v('destinacao')));
