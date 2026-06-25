@@ -103,7 +103,7 @@ textarea{min-height:88px;resize:vertical;line-height:1.35}
       <div><label>Tipo de atuação</label><select id="tipoAtuacao"><option>Preventiva</option><option>Urgente</option><option>Emergencial</option></select></div>
       <div><label>Classificação do risco</label><select id="risco"><option>Baixo</option><option selected>Médio</option><option>Alto</option><option>Iminente</option></select></div>
       <div><label>Categoria principal</label><select id="categoria"><option>Limpeza e desobstrução</option><option>Remoção superficial de sedimentos</option><option>Manejo de vegetação obstrutiva</option><option>Desobstrução de drenagem</option></select></div>
-      <div><label>APP / margem de curso d'água</label><select id="app"><option>Sim</option><option>Não</option><option>Não verificado</option></select></div>
+      <div><label>Caracterização APP / margem</label><select id="app"><option>Possível APP / margem de curso d'água</option><option>Canal artificial / drenagem urbana</option><option>Não foi possível caracterizar na vistoria</option></select></div>
     </div>
     <div class="hint">Este quadro foi incluído para deixar expressa a caracterização do risco e o limite da atuação da Defesa Civil, conforme orientação da Nota Técnica FECAM nº 02/2026.</div>
   </div>
@@ -244,7 +244,7 @@ A manifestação da Defesa Civil restringe-se à caracterização do risco e à 
 
   let html = `<div class="page">${headerHTML()}<div class="doc-title">Laudo Técnico nº ${esc(numero)}<br>Limpeza e Desobstrução Preventiva de Curso d'Água</div>`;
   html += kvHTML([
-    ['Município','Braço do Norte/SC'], ['Data da vistoria', brDate(v('dataVistoria'))], ['Hora', v('horaVistoria')], ['Responsável', v('responsavel')], ['Cargo/Função', v('cargo')], ['Córrego/curso d'água', v('corrego')], ['Bairro/Localidade', v('bairro')], ['Coordenadas', coords], ['Endereço/referência', v('endereco')]
+    ['Município','Braço do Norte/SC'], ['Data da vistoria', brDate(v('dataVistoria'))], ['Hora', v('horaVistoria')], ['Responsável', v('responsavel')], ['Cargo/Função', v('cargo')], ["Córrego/curso d'água", v('corrego')], ['Bairro/Localidade', v('bairro')], ['Coordenadas', coords], ['Endereço/referência', v('endereco')]
   ]);
   html += sec('1. Objetivo', esc(`Registrar a vistoria realizada no local identificado e subsidiar a execução de serviços de limpeza e desobstrução preventiva do curso d'água, visando garantir o adequado escoamento das águas pluviais, reduzir riscos de alagamentos, enxurradas, transbordamentos, erosões marginais e danos à população, à infraestrutura pública e privada e aos serviços essenciais.`));
   html += sec('2. Caracterização do risco e da intervenção', kvHTML([
